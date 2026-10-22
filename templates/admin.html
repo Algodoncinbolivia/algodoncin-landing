@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algodoncín — Reservas</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<style>
+  .wrap { max-width: 960px; margin: 0 auto; padding: 28px 16px 60px; }
+  table.mini { width: 100%; border-collapse: collapse; font-size: 13px; background: var(--surface); border-radius: 14px; overflow: hidden; box-shadow: var(--shadow); }
+  table.mini th, table.mini td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  table.mini th { background: var(--purple); color: #fff; font-weight: 800; font-size: 11.5px; text-transform: uppercase; }
+  .pill { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 800; }
+  .pill.pendiente { background: var(--yellow-soft); color: #8a5a10; }
+  .pill.confirmada { background: #dcf3e5; color: var(--positive); }
+  .pill.cancelada { background: #fbdedb; color: var(--negative); }
+  .filters { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
+  .filters a { font-size: 13px; font-weight: 700; color: var(--purple); text-decoration: none; padding: 6px 14px; border-radius: 20px; background: var(--purple-soft); }
+  .filters a.active { background: var(--purple); color: #fff; }
+  .actions form { display: inline; }
+  .actions button { font-size: 11.5px; font-weight: 700; border: none; border-radius: 7px; padding: 4px 9px; cursor: pointer; margin-right: 4px; }
+</style>
+</head>
+<body>
+<div class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><img src="{{ url_for('static', filename='logo.png') }}" alt="Algodoncín"><span>Reservas</span></div>
+    <div><a href="{{ url_for('admin_halloween') }}" class="nav-cta" style="background:var(--yellow);color:var(--purple-deep)">Halloween</a> <a href="{{ url_for('admin_logout') }}" class="nav-cta" style="background:var(--purple)">Salir</a></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="filters">
+    <a href="{{ url_for('admin_dashboard', estado='activas') }}" class="{{ 'active' if estado_filtro=='activas' else '' }}">Activas</a>
+    <a href="{{ url_for('admin_dashboard', estado='pendiente') }}" class="{{ 'active' if estado_filtro=='pendiente' else '' }}">Pendientes</a>
+    <a href="{{ url_for('admin_dashboard', estado='confirmada') }}" class="{{ 'active' if estado_filtro=='confirmada' else '' }}">Confirmadas</a>
+    <a href="{{ url_for('admin_dashboard', estado='cancelada') }}" class="{{ 'active' if estado_filtro=='cancelada' else '' }}">Canceladas</a>
+    <a href="{{ url_for('admin_dashboard', estado='todas') }}" class="{{ 'active' if estado_filtro=='todas' else '' }}">Todas</a>
+  </div>
+
+  {% if filas %}
+  <div style="overflow-x:auto">
+  <table class="mini">
+    <thead>
+      <tr><th>Fecha</th><th>Ciudad</th><th>Tipo</th><th>Cliente</th><th>WhatsApp</th><th>Detalle</th><th>Estado</th><th>Acciones</th></tr>
+    </thead>
+    <tbody>
+      {% for r in filas %}
+      <tr>
+        <td>{{ r['fecha'] }}</td>
+        <td>{{ r['ciudad'] }}</td>
+        <td>{{ 'Evento' if r['tipo']=='evento' else (r['punto'] or 'Punto fijo') }}</td>
+        <td>{{ r['nombre'] }}</td>
+        <td><a href="https://wa.me/591{{ r['whatsapp']|replace(' ','')|replace('-','') }}" target="_blank">{{ r['whatsapp'] }}</a></td>
+        <td>
+          {% if r['tipo_evento'] %}{{ r['tipo_evento'] }}{% endif %}
+          {% if r['invitados'] %} · {{ r['invitados'] }} inv.{% endif %}
+          {% if r['lugar'] %} · {{ r['lugar'] }}{% endif %}
+          {% if r['mensaje'] %}<br><span style="color:var(--text-muted)">{{ r['mensaje'] }}</span>{% endif %}
+        </td>
+        <td><span class="pill {{ r['estado'] }}">{{ r['estado'] }}</span></td>
+        <td class="actions">
+          {% if r['estado'] != 'confirmada' %}
+          <form method="post" action="{{ url_for('admin_cambiar_estado', reserva_id=r['id']) }}?estado={{ estado_filtro }}">
+            <input type="hidden" name="estado" value="confirmada">
+            <button type="submit" style="background:var(--positive);color:#fff">Confirmar</button>
+          </form>
+          {% endif %}
+          {% if r['estado'] != 'cancelada' %}
+          <form method="post" action="{{ url_for('admin_cambiar_estado', reserva_id=r['id']) }}?estado={{ estado_filtro }}">
+            <input type="hidden" name="estado" value="cancelada">
+            <button type="submit" style="background:var(--negative);color:#fff">Cancelar</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  {% else %}
+  <p style="color:var(--text-muted)">No hay reservas en esta vista.</p>
+  {% endif %}
+</div>
+</body>
+</html>

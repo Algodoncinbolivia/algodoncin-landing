@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halloween en Algodoncín — Registra tu disfraz</title>
+<meta name="description" content="Registra el disfraz de tu hijo, te preparamos su algodón de azúcar con anticipación y participa en el concurso de disfraces. Sábado 31 de octubre, Hotel Edén.">
+<meta name="theme-color" content="#2a0f4a">
+<meta property="og:title" content="Halloween en Algodoncín — Concurso de disfraces">
+<meta property="og:description" content="Registra tu disfraz y gana algodones y dinero en efectivo. Sábado 31 de octubre · {{ h.lugar }} · {{ h.hora }}.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ url_for('static', filename='halloween/compartir.jpg', _external=True) }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" type="image/png" href="{{ url_for('static', filename='halloween/icono.png') }}">
+<link rel="preload" as="image" href="{{ url_for('static', filename='halloween/logo.webp') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='halloween.css') }}">
+{% include "_pixel.html" %}
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="brand" href="{{ url_for('halloween') }}" aria-label="Algodoncín, inicio">
+      <img src="{{ url_for('static', filename='halloween/logo-chico.webp') }}" alt="" width="48" height="46">
+      <span class="marca">Algodoncín</span>
+    </a>
+    <a class="btn btn-chico" href="#registro">Registrarme</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <span class="estrella e1" aria-hidden="true"></span>
+  <span class="estrella e2" aria-hidden="true"></span>
+  <span class="estrella e3" aria-hidden="true"></span>
+  <div class="wrap hero-in">
+    <div class="hero-text">
+      <p class="when">{{ h.fecha }} · {{ h.lugar }} · {{ h.hora }}</p>
+      <h1>¿De qué te disfrazas <span class="amarillo">este Halloween?</span></h1>
+      <p class="lead">Regístrate y te preparamos con anticipación el algodón de tu personaje. Después, envíanos la foto del disfraz y participa en el concurso.</p>
+      <div class="hero-cta">
+        <a class="btn btn-main" href="#registro">Registrarme ahora</a>
+        <a class="btn btn-ghost" href="#premios">Ver premios</a>
+      </div>
+      {% if n_registrados >= 10 %}
+      <p class="proof"><b class="num">{{ n_registrados }}</b> disfraces ya registrados</p>
+      {% endif %}
+    </div>
+    <div class="hero-logo">
+      <img src="{{ url_for('static', filename='halloween/logo.webp') }}" alt="Algodoncín: el peluche más dulce del mundo, con sombrero de bruja" width="640" height="608" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<section class="datos-sec" aria-label="Datos del evento">
+  <div class="wrap">
+    <ul class="datos">
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+        <span><small>Cuándo</small><b>{{ h.fecha }}</b></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.7-6.5-11a6.5 6.5 0 0 1 13 0c0 5.3-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        <span><small>Dónde</small><b>{{ h.lugar }}</b></span>
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7v5.2l3.3 2"/></svg>
+        <span><small>Desde las</small><b class="num">{{ h.hora }}</b></span>
+      </li>
+    </ul>
+    <p class="plazo">Regístrate hasta el <b>{{ registro_hasta }}</b></p>
+  </div>
+</section>
+
+<section class="pasos" id="como">
+  <div class="wrap">
+    <h2>Cómo participar</h2>
+    <ol class="pasos-lista">
+      <li>
+        <span class="paso-n">1</span>
+        <div><h3>Regístrate en esta página</h3><p>Dinos el nombre del niño o niña y de qué se disfraza. Preparamos su algodón antes del evento.</p></div>
+      </li>
+      <li>
+        <span class="paso-n">2</span>
+        <div><h3>Envía la foto al WhatsApp</h3><p>Al terminar tu registro, un botón abre WhatsApp con el mensaje listo. Solo adjuntas la foto del disfraz.</p></div>
+      </li>
+      <li>
+        <span class="paso-n">3</span>
+        <div><h3>El público elige</h3><p>Publicamos las fotos en nuestro TikTok. Gana la que tenga más corazones hasta el {{ votos_hasta }}.</p></div>
+      </li>
+      <li>
+        <span class="paso-n">4</span>
+        <div><h3>Ven el sábado al {{ h.lugar }}</h3><p>Desde las {{ h.hora }}. Recoges tu algodón y, si ganaste, tu premio.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="registro" id="registro">
+  <div class="wrap registro-grid">
+    <div class="registro-lado">
+      <h2>Registra tu disfraz</h2>
+      <img class="algodon" src="{{ url_for('static', filename='halloween/algodon.webp') }}" alt="" width="330" height="420" loading="lazy">
+    </div>
+
+    <div class="registro-form">
+    {% if not abierto %}
+    <div class="aviso aviso-cierre" role="status">
+      <h3>{{ 'Los registros ya cerraron' if motivo == 'plazo' else 'Se acabaron los cupos' }}</h3>
+      <p>Aún puedes participar en el concurso enviando la foto del disfraz{% if motivo == 'plazo' %} (si llegas a tiempo){% endif %}. Si quieres tu algodón preparado, escríbenos y vemos si es posible.</p>
+      <a class="btn btn-main" href="{{ wa_general }}" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+    {% else %}
+
+    <form id="form-registro" class="card" novalidate>
+      {% if restantes is not none %}
+      <p class="cupos">Quedan <b class="num">{{ restantes }}</b> algodones para preparar con anticipación.</p>
+      {% endif %}
+
+      <div class="campo">
+        <label for="nombre_nino">Nombre del niño o niña</label>
+        <input id="nombre_nino" name="nombre_nino" type="text" maxlength="60" autocomplete="off" required>
+        <small>Puede ser solo el nombre o un apodo.</small>
+      </div>
+
+      <div class="campo">
+        <label for="nombre_adulto">Tu nombre (mamá, papá o tutor)</label>
+        <input id="nombre_adulto" name="nombre_adulto" type="text" maxlength="80" autocomplete="name" required>
+      </div>
+
+      <div class="campo">
+        <label for="whatsapp">Tu WhatsApp</label>
+        <input id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" maxlength="14" autocomplete="tel-national" placeholder="7XXXXXXX" required>
+        <small>8 dígitos. Solo te escribimos por este registro.</small>
+      </div>
+
+      <fieldset class="campo">
+        <legend>¿De qué se disfraza?</legend>
+        <div class="chips">
+          {% for d in disfraces %}
+          <label class="chip"><input type="radio" name="disfraz" value="{{ d }}"><span>{{ d }}</span></label>
+          {% endfor %}
+          <label class="chip"><input type="radio" name="disfraz" value="{{ otro }}"><span>Otro</span></label>
+        </div>
+        <div id="otro-box" class="otro-box" hidden>
+          <label for="disfraz_otro">¿Cuál es el disfraz?</label>
+          <input id="disfraz_otro" name="disfraz_otro" type="text" maxlength="60" autocomplete="off">
+          <small>Te confirmamos por WhatsApp si podemos preparar ese personaje.</small>
+        </div>
+      </fieldset>
+
+      <div class="campo campo-corto">
+        <label for="cantidad">Algodones a preparar</label>
+        <select id="cantidad" name="cantidad">
+          {% for n in range(1, h.max_por_registro + 1) %}
+          <option value="{{ n }}">{{ n }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="trampa" aria-hidden="true">
+        <label>No llenes este campo <input type="text" name="web" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <input type="hidden" name="fuente" id="fuente">
+
+      <label class="acepto">
+        <input type="checkbox" name="acepta" id="acepta">
+        <span>Soy mamá, papá o tutor y acepto las <a href="#bases">bases del concurso</a>, incluida la publicación de la foto del disfraz en el TikTok de Algodoncín.</span>
+      </label>
+
+      <p id="error" class="error" role="alert" aria-live="assertive" hidden></p>
+      <button class="btn btn-main btn-block" id="enviar" type="submit">Registrar mi disfraz</button>
+    </form>
+
+    <div id="exito" class="card exito" role="status" tabindex="-1" hidden>
+      <h3 id="exito-titulo">¡Listo!</h3>
+      <p>Tu registro quedó guardado y vamos a preparar el algodón de tu personaje.</p>
+      <p><b>Último paso:</b> envíanos la foto del disfraz por WhatsApp para entrar al concurso.</p>
+      <a id="wa-foto" class="btn btn-main btn-block" href="#" target="_blank" rel="noopener">Enviar la foto por WhatsApp</a>
+      <p class="nota">Se abre WhatsApp con el mensaje escrito; solo adjuntas la foto. Si no la envías, tu algodón queda registrado igual, pero no participas en el concurso.</p>
+    </div>
+    {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="premios" id="premios">
+  <div class="wrap">
+    <h2>Premios del concurso</h2>
+    <p class="sub">Para los tres disfraces con más corazones.</p>
+    <div class="premios-grid">
+      <article class="premio p-oro">
+        <svg class="corona" viewBox="0 0 64 44" aria-hidden="true"><path d="M5 38 9 10l14 14L32 5l9 19 14-14 4 28Z"/><rect x="5" y="38" width="54" height="5" rx="2.5"/></svg>
+        <span class="lugar">1.er lugar</span>
+        <b class="grande num">10 algodones</b>
+        <span class="mas num">+ Bs 100</span>
+        <small>en efectivo</small>
+      </article>
+      <article class="premio p-plata">
+        <svg class="corona" viewBox="0 0 64 44" aria-hidden="true"><path d="M5 38 9 10l14 14L32 5l9 19 14-14 4 28Z"/><rect x="5" y="38" width="54" height="5" rx="2.5"/></svg>
+        <span class="lugar">2.º lugar</span>
+        <b class="grande num">5 algodones</b>
+        <span class="mas num">+ Bs 50</span>
+        <small>en efectivo</small>
+      </article>
+      <article class="premio p-bronce">
+        <svg class="corona" viewBox="0 0 64 44" aria-hidden="true"><path d="M5 38 9 10l14 14L32 5l9 19 14-14 4 28Z"/><rect x="5" y="38" width="54" height="5" rx="2.5"/></svg>
+        <span class="lugar">3.er lugar</span>
+        <b class="grande num">2 algodones</b>
+        <span class="mas num">+ Bs 20</span>
+        <small>en efectivo</small>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="bases" id="bases">
+  <div class="wrap wrap-narrow">
+    <h2>Bases del concurso</h2>
+    <ol class="bases-lista">
+      <li>Participan niños y niñas disfrazados. El registro y el envío de la foto los hace una mamá, un papá o un tutor.</li>
+      <li>La foto se envía al WhatsApp <b class="num">{{ whatsapp_visible }}</b> hasta el {{ registro_hasta }}. Para el concurso solo hace falta la foto; el registro en esta página sirve para tener tu algodón preparado.</li>
+      <li>Publicamos las fotos recibidas en el TikTok de Algodoncín. Gana la que tenga más corazones el {{ votos_hasta }}, medido con una captura de pantalla a esa hora.</li>
+      <li>Si hay empate, gana la foto que recibimos primero por WhatsApp.</li>
+      <li>Podemos descalificar fotos con votos sospechosos, como cuentas falsas o likes comprados.</li>
+      <li>Los premios se entregan el {{ h.fecha.lower() }} en el {{ h.lugar }} a la mamá, papá o tutor, con un recibo firmado. Si no puedes ir, lo coordinamos por WhatsApp.</li>
+      <li>Al enviar la foto autorizas su publicación en el TikTok de Algodoncín. No publicamos direcciones ni colegios.</li>
+    </ol>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="wrap pie-in">
+    <img src="{{ url_for('static', filename='halloween/logo.webp') }}" alt="Algodoncín" width="150" height="142" loading="lazy">
+    <div>
+      <p class="pie-lema">El peluche más dulce del mundo</p>
+      <p><a href="{{ wa_general }}" target="_blank" rel="noopener">WhatsApp <span class="num">{{ whatsapp_visible }}</span></a>{% if h.tiktok_url %} · <a href="{{ h.tiktok_url }}" target="_blank" rel="noopener">TikTok</a>{% endif %}</p>
+    </div>
+  </div>
+</footer>
+
+<script src="{{ url_for('static', filename='halloween.js') }}" defer></script>
+</body>
+</html>

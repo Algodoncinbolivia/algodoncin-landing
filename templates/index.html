@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algodoncín Oruro — Algodones de azúcar con forma de personajes | Reserva tu fecha</title>
+<meta name="description" content="Algodones de azúcar gourmet con forma de tus personajes favoritos, para eventos y fiestas en Oruro, La Paz, Cochabamba y Santa Cruz. Reserva tu fecha en línea.">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% include "_pixel.html" %}
+</head>
+<body>
+
+<a class="halloween-bar" href="{{ url_for('halloween') }}">Halloween en Algodoncín: registra tu disfraz y participa en el concurso →</a>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Algodoncín">
+      <span>Algodoncín</span>
+    </div>
+    <a href="#reserva" class="nav-cta">Reservar fecha</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">✨ El peluche más dulce del mundo</div>
+      <h1>Algodones de azúcar con forma de <span class="accent">tus personajes favoritos</span></h1>
+      <p class="lead">Una cosa menos de la que preocuparte en la fiesta: nosotros llevamos el carrito, la máquina y a nuestros artistas del algodón — vos solo disfrutás con tus invitados. Listo en menos de 2 minutos, frente a los ojos de los niños.</p>
+      <div class="hero-actions">
+        <a href="#reserva" class="btn btn-pink">📅 Reservar mi fecha</a>
+        <a href="https://wa.me/59175715559?text=Hola%2C%20quiero%20cotizar%20Algodonc%C3%ADn%20para%20mi%20fiesta%20%E2%9C%A8" target="_blank" rel="noopener" class="btn btn-outline">💬 Escribir por WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>78.5k</b><span>Seguidores en TikTok</span></div>
+        <div class="stat"><b>4</b><span>Ciudades en Bolivia</span></div>
+        <div class="stat"><b>&lt;2 min</b><span>Por algodón</span></div>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="tape">Fiesta real en Oruro 🎈</div>
+      <img src="{{ url_for('static', filename='hero.jpg') }}" alt="Carrito Algodoncín en una fiesta infantil">
+    </div>
+  </div>
+</header>
+
+<section id="como-funciona" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Simple, sin vueltas</div>
+      <h2>Cómo funciona</h2>
+      <p>De la idea a la fiesta, en tres pasos — y vos no tenés que coordinar nada más que la fecha.</p>
+    </div>
+    <div class="pasos-grid">
+      <div class="paso-card">
+        <div class="paso-num">1</div>
+        <h3>Elegís fecha y personajes</h3>
+        <p>Mirás el calendario de abajo, ves qué días están libres y elegís los diseños que más le van a gustar a tus invitados.</p>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">2</div>
+        <h3>Confirmamos por WhatsApp</h3>
+        <p>Te escribimos para cerrar invitados, horario y lugar, y coordinar el anticipo para apartar tu fecha.</p>
+      </div>
+      <div class="paso-card">
+        <div class="paso-num">3</div>
+        <h3>Disfrutás la fiesta</h3>
+        <p>Llegamos con todo armado — carrito, máquina, insumos y nuestro equipo. Vos solo disfrutás con tus invitados.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="container about-grid">
+    <div>
+      <div class="section-head" style="text-align:left;margin:0 0 18px">
+        <div class="kicker">Quiénes somos</div>
+        <h2 style="margin-top:8px">Convertimos el algodón de azúcar tradicional en una experiencia</h2>
+      </div>
+      <p>Nos inspiramos en la cultura oriental para transformar el algodón de azúcar de siempre en diseños innovadores e instagrameables, con forma de los personajes que más le gustan a los niños (¡y a los grandes!).</p>
+      <p>Adaptamos las máquinas tradicionales para crear estas obras de arte comestibles en menos de 2 minutos, frente a los ojos de tus invitados. Somos parte de una marca internacional presente en Bolivia, Perú y otros países.</p>
+    </div>
+    <div class="about-quote">
+      "En Algodoncín, creamos memorias dulces y duraderas en cada fiesta y evento."
+    </div>
+  </div>
+</section>
+
+<section id="servicios" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Qué ofrecemos</div>
+      <h2>Dos formas de disfrutar Algodoncín</h2>
+      <p>Ya sea que estés organizando una fiesta o quieras encontrarnos en la calle, tenemos una opción para ti.</p>
+    </div>
+    <div class="cards-2">
+      <div class="offer-card a">
+        <div class="icon-badge">🎉</div>
+        <h3>Evento privado</h3>
+        <p>Llevamos el carrito Algodoncín y a nuestros artistas del algodón directo a tu cumpleaños, evento empresarial o celebración.</p>
+        <ul>
+          <li>Disponible en Oruro, La Paz, Cochabamba y Santa Cruz</li>
+          <li>Diseños de personajes a elección</li>
+          <li>Arma tu paquete según el número de invitados</li>
+        </ul>
+        <div class="offer-price">
+          <span>Precio</span>
+          <b>Cotización según tu fiesta</b>
+        </div>
+        <a href="https://wa.me/59175715559?text=Hola%2C%20quiero%20cotizar%20un%20evento%20privado%20con%20Algodonc%C3%ADn" target="_blank" rel="noopener" class="offer-cta">Cotizar en minutos por WhatsApp →</a>
+      </div>
+      <div class="offer-card b">
+        <div class="icon-badge">📍</div>
+        <h3>Punto fijo</h3>
+        <p>Visítanos en nuestros puntos habituales en Oruro y compra tu algodón favorito directamente.</p>
+        <ul>
+          <li>Parque de la Unión</li>
+          <li>Plaza Sebastián Pagador</li>
+          <li>Reserva tu visita para asegurar tu diseño</li>
+        </ul>
+        <div class="offer-price">
+          <span>Precio</span>
+          <b>Desde Bs. {{ precio_punto_fijo }} por algodón</b>
+        </div>
+        <a href="#reserva" class="offer-cta">Ver disponibilidad →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="catalogo">
+  <div class="container catalog-grid">
+    <img src="{{ url_for('static', filename='catalogo.jpg') }}" alt="Catálogo de diseños de algodón de azúcar Algodoncín">
+    <div>
+      <div class="section-head" style="text-align:left;margin:0 0 6px">
+        <div class="kicker">Catálogo</div>
+        <h2 style="margin-top:8px">Más de 20 diseños para elegir</h2>
+      </div>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.6">Desde los clásicos hasta los personajes de moda — nuestros artistas los preparan al momento con tus colores y forma favoritos.</p>
+      <div class="chip-list">
+        <span class="chip">Hello Kitty</span>
+        <span class="chip">Pikachu</span>
+        <span class="chip">Unicornio</span>
+        <span class="chip">Baby Yoda</span>
+        <span class="chip">Kuromi</span>
+        <span class="chip">My Melody</span>
+        <span class="chip">Cinnamoroll</span>
+        <span class="chip">Mario y Luigi</span>
+        <span class="chip">Among Us</span>
+        <span class="chip">Minions</span>
+        <span class="chip">Y muchos más…</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if testimonios %}
+<section id="testimonios">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Lo que dicen las mamás</div>
+      <h2>Fiestas reales, mamás felices</h2>
+    </div>
+    <div class="testimonios-grid">
+      {% for t in testimonios %}
+      <div class="testimonio-card">
+        <div class="testimonio-estrellas">★★★★★</div>
+        <p>"{{ t.texto }}"</p>
+        <div class="testimonio-autor">{{ t.nombre }} — {{ t.evento }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section id="ciudades" style="background:var(--surface-2)">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Cobertura</div>
+      <h2>Dónde te llevamos la fiesta</h2>
+      <p>Actualmente atendemos eventos privados en estas ciudades de Bolivia.</p>
+    </div>
+    <div class="ciudades-grid">
+      {% for c in ciudades %}
+      <div class="ciudad-card">
+        <div class="pin">📍</div>
+        <h3>{{ c }}</h3>
+        <span>{{ 'Puntos fijos + eventos' if c == 'Oruro' else 'Eventos privados' }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">Antes de reservar</div>
+      <h2>Preguntas frecuentes</h2>
+      <p>Lo que más nos preguntan las mamás antes de organizar su fiesta con nosotros.</p>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>¿Qué incluye el servicio de evento privado?</summary>
+        <p>Vamos con el carrito, la máquina, los insumos y nuestro equipo de artistas del algodón. Vos solo elegís los personajes y nosotros nos encargamos del resto, frente a tus invitados.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Con cuánta anticipación debo reservar?</summary>
+        <p>Mientras antes reserves, más posibilidades tenés de asegurar tu fecha y los diseños que quieras — sobre todo en fines de semana. El calendario de abajo te muestra en vivo qué fechas ya están tomadas.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Es seguro e higiénico para los niños?</summary>
+        <p>Cada algodón se prepara al momento, frente a tus invitados, con insumos aptos para consumo y buenas prácticas de higiene de nuestro equipo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Puedo elegir cualquier personaje del catálogo?</summary>
+        <p>Sí. Elegís los diseños que quieras (o combinás varios) al confirmar por WhatsApp. Para personajes muy nuevos o específicos, coordinamos disponibilidad de insumos con anticipación.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Mi evento es al aire libre, ¿el calor afecta el algodón?</summary>
+        <p>Sí — el calor y la humedad sí afectan la textura. Contanos el lugar y el horario al reservar y te ayudamos a elegir el mejor momento del día para servirlo.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo pago?</summary>
+        <p>Para apartar tu fecha pedimos un anticipo; el resto se paga el día del evento, en efectivo o QR. Coordinamos todo por WhatsApp.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Trabajan fuera de Oruro?</summary>
+        <p>Sí, llevamos eventos privados a La Paz, Cochabamba y Santa Cruz además de Oruro. Los puntos fijos por ahora solo están en Oruro.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="reserva">
+  <div class="container">
+    <div class="reserva-section">
+      <div class="reserva-wrap">
+        <div class="section-head">
+          <div class="kicker">Reserva tu fecha</div>
+          <h2>Elige tu ciudad y el día disponible</h2>
+          <p>El calendario se actualiza al instante. Al reservar, tu fecha queda apartada y te contactaremos por WhatsApp para confirmar los detalles.</p>
+        </div>
+
+        <div class="reserva-controls">
+          <div>
+            <label for="selCiudad">Ciudad</label>
+            <select id="selCiudad">
+              {% for c in ciudades %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+            </select>
+          </div>
+          <div id="tipoWrap">
+            <label>Tipo de reserva</label>
+            <div class="toggle-group" id="tipoToggle">
+              <button type="button" class="toggle-btn active" data-tipo="evento">Evento privado</button>
+              <button type="button" class="toggle-btn" data-tipo="punto_fijo">Punto fijo</button>
+            </div>
+          </div>
+          <div id="puntoWrap" style="display:none">
+            <label for="selPunto">Punto fijo</label>
+            <select id="selPunto"></select>
+          </div>
+        </div>
+
+        <div class="reserva-layout">
+          <div class="calendar-card">
+            <div class="cal-header">
+              <button class="cal-nav-btn" id="calPrev" type="button">‹</button>
+              <div class="cal-title" id="calTitle"></div>
+              <button class="cal-nav-btn" id="calNext" type="button">›</button>
+            </div>
+            <div class="cal-grid" id="calDow"></div>
+            <div class="cal-grid" id="calGrid" style="margin-top:5px"></div>
+            <div class="cal-legend">
+              <span><i class="dot free"></i>Disponible</span>
+              <span><i class="dot taken"></i>Reservado</span>
+              <span><i class="dot selected"></i>Tu elección</span>
+            </div>
+          </div>
+
+          <div class="booking-card" id="bookingCard">
+            <div class="empty-state">
+              <div class="big">🍬</div>
+              Elige una fecha disponible en el calendario para continuar con tu reserva.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" id="contacto">
+  <div class="container">
+    <div class="footer-brand">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Algodoncín" style="width:38px;height:38px">
+      <span>Algodoncín</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://wa.me/59175715559?text=Hola%2C%20quiero%20cotizar%20Algodonc%C3%ADn%20para%20mi%20fiesta%20%E2%9C%A8" target="_blank" rel="noopener">WhatsApp +591 75715559</a>
+      <a href="mailto:algodoncin6@gmail.com">algodoncin6@gmail.com</a>
+      <a href="https://www.tiktok.com/@algodoncinbolivia" target="_blank" rel="noopener">TikTok @algodoncinbolivia</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© {{ hoy[:4] }} Algodoncín Oruro — Todos los derechos reservados</div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/59175715559?text=Hola%2C%20quiero%20cotizar%20Algodonc%C3%ADn%20para%20mi%20fiesta%20%E2%9C%A8" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+<script>
+  const PUNTOS_FIJOS = {{ puntos_fijos | tojson }};
+  const HOY = "{{ hoy }}";
+</script>
+<script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Algodoncín — Panel de reservas</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px">
+  <div style="width:100%;max-width:340px;display:flex;flex-direction:column;gap:16px;align-items:center">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Algodoncín" style="width:80px;height:80px;border-radius:20px;box-shadow:var(--shadow)">
+    <h2 style="margin:0">Panel de reservas</h2>
+    {% if error %}<div class="form-msg error" style="width:100%;text-align:center">{{ error }}</div>{% endif %}
+    <form method="post" style="width:100%">
+      <div class="field">
+        <label for="pin">PIN de administradora</label>
+        <input type="password" id="pin" name="pin" inputmode="numeric" autofocus>
+      </div>
+      <button type="submit" class="btn btn-pink" style="width:100%;justify-content:center">Entrar</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
