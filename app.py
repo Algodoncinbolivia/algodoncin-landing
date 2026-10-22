@@ -1,7 +1,9 @@
 import csv
+import hashlib
 import io
 import os
 import re
+import time
 from datetime import date, datetime, timedelta
 from functools import wraps
 from urllib.parse import quote
@@ -12,7 +14,20 @@ from werkzeug.security import check_password_hash
 from db import get_conn, init_db
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET_KEY", "dev-secret-cambiar-en-produccion")
+
+def _clave_secreta():
+    """Clave que firma las sesiones. El código es público, así que nunca se usa un valor fijo en el
+    hosting: si no hay SECRET_KEY se deriva de secretos que solo existen allá (token de Turso + PIN)."""
+    clave = os.environ.get("SECRET_KEY", "").strip()
+    if clave:
+        return clave
+    base = os.environ.get("TURSO_AUTH_TOKEN", "") + "|" + os.environ.get("ADMIN_PIN", "")
+    if base != "|":
+        return hashlib.sha256(("algodoncin-landing|" + base).encode()).hexdigest()
+    return "solo-para-probar-en-la-computadora"
+
+
+app.secret_key = _clave_secreta()
 
 CIUDADES = ["Oruro", "La Paz", "Cochabamba", "Santa Cruz"]
 PUNTOS_FIJOS = {"Oruro": ["Parque de la Unión", "Plaza Sebastián Pagador"]}
@@ -367,15 +382,28 @@ def admin_halloween_csv():
 
 # ---------------------------------------------------------------- admin ----
 
+_FALLOS_LOGIN = {}  # ip -> horas de los últimos intentos fallidos (en memoria)
+
+
 @app.route("/admin/login", methods=["GET", "POST"])
 def admin_login():
     if request.method == "GET":
         return render_template("admin_login.html", error=request.args.get("error"))
 
+    # Freno a quien prueba PINs al azar: 5 fallos por dirección y se bloquea 15 minutos.
+    ip = (request.headers.get("X-Forwarded-For", request.remote_addr or "") or "").split(",")[0].strip()
+    ahora = time.time()
+    fallos = [t for t in _FALLOS_LOGIN.get(ip, []) if ahora - t < 900]
+    if len(fallos) >= 5:
+        return redirect(url_for("admin_login", error="Demasiados intentos. Espera 15 minutos."))
+
     pin = request.form.get("pin", "")
     admin = g.db.execute("SELECT * FROM admin LIMIT 1").fetchone()
     if admin is None or not check_password_hash(admin["pin_hash"], pin):
+        fallos.append(ahora)
+        _FALLOS_LOGIN[ip] = fallos
         return redirect(url_for("admin_login", error="PIN incorrecto."))
+    _FALLOS_LOGIN.pop(ip, None)
     session.clear()
     session["is_admin"] = True
     return redirect(url_for("admin_dashboard"))
